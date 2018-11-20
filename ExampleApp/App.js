@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {StyleSheet, Text, View, Button, NativeModules } from 'react-native';
 import RNTest from "react-native-test-lib";
 
 type Props = {};
