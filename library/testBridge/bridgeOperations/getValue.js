@@ -1,3 +1,3 @@
-const getValue = bridge => new Promise(resolve => setTimeout(() => resolve('A native response'), 2000));
+const getValue = bridge => bridge.getValue();
 
 export default getValue;
