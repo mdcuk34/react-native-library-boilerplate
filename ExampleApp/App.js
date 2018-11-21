@@ -14,7 +14,9 @@ type Props = {};
 export default class ExampleApp extends Component<Props> {
 
 	state = {
-		nativeResult: "nothing"
+		nativeResult: "nothing",
+		deviceId: "unknown",
+		coolFeature: "not cool",
 	}
 
 	getNativeResult = async () => {
@@ -24,6 +26,27 @@ export default class ExampleApp extends Component<Props> {
 			this.setState({ nativeResult: response})
 		} catch(e) {
 			this.setState({ nativeResult: e})
+		}
+	}
+
+	getDeviceId = async () => {
+		this.setState({ deviceId: "loading..."})
+		try {
+			const { id } = await RNTest.requestDeviceId()
+			this.setState({ deviceId: id})
+		} catch(e) {
+			this.setState({ deviceId: e})
+		}
+	}
+
+	coolFeature = async () => {
+		this.setState({ coolFeature: "loading..."})
+		try {
+			const response = await RNTest.coolFeature()
+			console.log(response)
+			this.setState({ coolFeature: response})
+		} catch(e) {
+			this.setState({ coolFeature: e})
 		}
 	}
 
@@ -37,6 +60,20 @@ export default class ExampleApp extends Component<Props> {
 					title="Run Native Code"
 					color="#841584"
 					accessibilityLabel="Run Native Code Button"
+				/>
+				<Text style={styles.instructions}>Device id: {this.state.deviceId}</Text>
+				<Button
+					onPress={this.getDeviceId}
+					title="Get Device Id"
+					color="#841584"
+					accessibilityLabel="Get Device Id Button"
+				/>
+				<Text style={styles.instructions}>Cool feature: {this.state.coolFeature}</Text>
+				<Button
+					onPress={this.coolFeature}
+					title="Get Device Id"
+					color="#841584"
+					accessibilityLabel="Get Device Id Button"
 				/>
 			</View>
 		);

@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.bridge.Arguments;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,4 +58,20 @@ public class RNTestLibModule extends ReactContextBaseJavaModule {
   public void getValue(final Promise promise) {
     promise.resolve("A real native value");
   }
+
+  @ReactMethod
+  public void requestDeviceId() {
+    // A method to request the device ID, below you could be calling an SDK implementation
+    // Remember to consider error handing here to void app crashes
+    deviceID("10001");
+  }
+
+  private void deviceID(String id){
+    // This might be a method within a class that implements the SDK you're using
+    WritableMap idData = Arguments.createMap();
+    idData.putString("id", id);
+    emitDeviceEvent("device-id", idData);
+  }
+
+
 }
